@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Simulation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #simulation-canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        select {
+            padding: 8px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="simulation-canvas"></div>
+    
+    <div id="controls">
+        <h3>Environmental Simulation Controls</h3>
+        <div>
+            <label for="preset-selector">Performance Preset:</label>
+            <select id="preset-selector">
+                <option value="desktop">Desktop (High)</option>
+                <option value="web">Web (Medium)</option>
+                <option value="mobile">Mobile (Low)</option>
+            </select>
+        </div>
+        <div>
+            <button id="btn-reload">Reload Simulation</button>
+            <button id="btn-toggle-overlay">Toggle Climate Overlay</button>
+        </div>
+    </div>
+
+    <!-- Import application as a module -->
+    <script type="module">
+        import EnvironmentalSimulation from './index.js';
+        
+        // Store global reference to the app
+        window.app = null;
+        
+        // Initialize application with selected preset
+        function initApp() {
+            const presetSelector = document.getElementById('preset-selector');
+            const preset = presetSelector.value;
+            
+            // Create new app instance
+            window.app = new EnvironmentalSimulation({
+                preset: preset,
+                canvasId: 'simulation-canvas'
+            });
+            
+            // Initialize the app
+            window.app.initialize().then(success => {
+                if (success) {
+                    console.log(`Application started with ${preset} preset`);
+                } else {
+                    console.error("Application failed to start");
+                }
+            });
+        }
+        
+        // Setup UI controls
+        document.getElementById('btn-reload').addEventListener('click', () => {
+            // Remove any existing canvas elements
+            const existingCanvas = document.querySelector('canvas');
+            if (existingCanvas) {
+                existingCanvas.remove();
+            }
+            
+            // Reinitialize the application
+            initApp();
+        });
+        
+        document.getElementById('btn-toggle-overlay').addEventListener('click', () => {
+            if (window.app && window.app.overlay) {
+                window.app.overlay.visible = !window.app.overlay.visible;
+                console.log(`Climate overlay ${window.app.overlay.visible ? 'shown' : 'hidden'}`);
+            }
+        });
+        
+        document.getElementById('preset-selector').addEventListener('change', () => {
+            // Reload with new preset when changed
+            document.getElementById('btn-reload').click();
+        });
+        
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
+<!-- End of index.html -->
+ 

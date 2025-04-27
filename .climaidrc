@@ -1,0 +1,25 @@
+{
+    "cloudProviders": ["aws", "gcp"],
+    "quantumAcceleration": true,
+    "maxPolyCount": 1000000,
+    "dataStorage": {
+      "local": "./data",
+      "remote": "s3://climate-sim-data"
+    },
+    "rendering": {
+      "engine": "webgl",
+      "fallbackEngine": "canvas"
+    },
+    "mlBackends": {
+      "primary": "pytorch",
+      "quantum": "qiskit"
+    },
+    "authentication": {
+      "required": false,
+      "provider": "oauth2"
+    },
+    "logging": {
+      "level": "info",
+      "outputs": ["console", "file"]
+    }
+  }

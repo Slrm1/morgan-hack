@@ -1,0 +1,32 @@
+{
+    "name": "environmental-simulation",
+    "version": "1.0.0",
+    "description": "Environmental simulation with quantum ML integration",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+      "start": "http-server -c-1",
+      "test": "python tests/validation_test.py",
+      "build": "node scripts/build.js",
+      "benchmark": "node scripts/benchmark.js"
+    },
+    "keywords": [
+      "climate",
+      "simulation",
+      "quantum",
+      "webgl",
+      "environmental"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+      "three": "^0.158.0",
+      "cesium": "^1.107.0",
+      "webgl-utils": "^1.1.0"
+    },
+    "devDependencies": {
+      "http-server": "^14.1.1"
+    }
+  }
+
+  

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+service EnvironmentStream {
+  rpc GetRealTimeData(stream SensorData) returns (stream Prediction);
+}
+
+message SensorData {
+  int64 timestamp = 1;
+  float latitude = 2;
+  float longitude = 3;
+  repeated float measurements = 4;
+}
+
+message Prediction {
+  repeated float climate_projections = 1;
+  bytes visualization_data = 2;
+}
